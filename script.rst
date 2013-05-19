@@ -105,6 +105,9 @@ Qué es geokettle
   - Transformación: procedimiento ETL
   - Trabajo: coordinación de transformaciones
 
+> The Data Integration perspective of Spoon allows you to create two basic document types: transformations and jobs. Transformations are used to describe the data flows for ETL such as reading from a source, transforming data and loading it into a target location. Jobs are used to coordinate ETL activities such as defining the flow and dependencies for what order transformations should be run, or prepare for execution by checking conditions such as, "Is my source file available?," or "Does a table exist in my database?"
+
+
 - GeoKettle:
 
   - Fork (técnico) que añade pasos geo
@@ -112,9 +115,39 @@ Qué es geokettle
   - LGPL
   - Se integra con OGR, GDAL, SEXTANTE
   - Usa JTS internamente
+  - Dispone de pasos para trabajar con catálogos CSW, análisis de datos, transformación de coordenadas, cliente WPS,....
 
 
-::
+Nuestro trabajo:
+++++++++++++++++++++++++++++++++++
 
-  The Data Integration perspective of Spoon allows you to create two basic document types: transformations and jobs. Transformations are used to describe the data flows for ETL such as reading from a source, transforming data and loading it into a target location. Jobs are used to coordinate ETL activities such as defining the flow and dependencies for what order transformations should be run, or prepare for execution by checking conditions such as, "Is my source file available?," or "Does a table exist in my database?"
+Pasos:
 
+#. Eliminar el índice de la tabla (Oracle hack, SQL)
+#. Cargar el DXF con OGR
+
+   - filtrando por capa para evitar cargar datos innecesarios
+
+#. Filtrar geometrías que no sean de tipo linea (JavaScript)
+#. Poligonizar las geometrías con JTS (JavaScript)
+#. Filtrar campos
+#. Cargar en tabla Oracle (borrando datos anteriores)
+#. Actualizar geometrías con el CRS correcto (SQL)
+#. Reparar geometrías con (SQL):
+
+   - Sentido de giro incorrecto
+   - Nodos repetidos
+   - ????
+
+#. Crear de nuevo el índice (SQL)
+
+..note:: se genera un log sencillo del proceso
+
+..attention:: falta log
+
+Conclusiones
+---------------------------
+
+- Geokettle es una potente herramienta de manipulación de datos
+- Es un GIS de escritorio dedicado a automatizar procesos
+- Adaptado a usuarios con conocimientos variados: OGR/GDAL, SQL, JavaScript,...
