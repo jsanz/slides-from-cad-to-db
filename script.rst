@@ -1,154 +1,168 @@
 Script
 =====================
 
-Presentacion
----------------
+Presenting myself
+--------------------
 
-¿Quién soy, de dónde vengo?
+Who I am, where I come from?
 
-- Me llamo Jorge Sanz...
-- Trabajo en Prodevelop
-- Trabajamos para puertos de todo tipo
+- My name is Jorge Sanz, @xurxosanz
+- I work at Prodevelop
+- We do several things, but our main sector are ports
 
-El mundo real es duro
+Real world(tm) is hard
 ------------------------
 
-- En los puertos hay delineantes
+- On harbours we have draughtsmen, surveyors, civil engineers
 
-  - Conocimientos de dibujo técnico, topografía
-  - Pocos o ningún conocimiento de bases de datos o  GIS
-  - Solo usan AutoCAD
-  - Dibujos
+  - High skills on technical drawings, surveying, etc
+  - Almost 0 knowledge on GIS or databases
+  - The live inside AutoCAD
 
     - http://www.flickr.com/photos/kingcounty/8139974275/
     - http://www.flickr.com/photos/kozmicdogz/5618334387/
     - http://www.flickr.com/photos/the-lobster/4014103606/
 
-- Los puertos quieren usar GIS
+- But harbours want to use GIS
 
-  - Gestión de los espacios (€€€)
-  - Gestión de emergencias
-  - Conocimiento del estado actual del puerto
+  - Management of their space (€€€)
+  - Emergency management
+  - Real time harbour knowledge (of facilities, staff, etc)
   - ...
 
-- Por lo tanto hay que alimentar un GIS con datos del puerto
+- So they usually have needs for GIS
 
-  - Toca cargar datos CAD en bases de datos geoespaciales
-  - Nuestra pelea diaria desde hace 20 años
+  - Need to load their CAD data into spatially enabled databases
+  - Our daily fight (as a company) over the last 20 years
 
-Caso de uso real
+Real use case
 -----------------------
 
-- Estamos con una aplicación de gestion de espacios del puerto
-- Cartografía en DWG
-- Hay que llevar esa cartografía a una base de datos Oracle
-- Lo tiene que poder hacer el delineante conforme realice
-  cambios en su cartografía
+- We have a space management application
+- Cartography is maintained in DWG format
+- We have to load that data into an Oracle database
+- The draughtsman has to be able to load it as he does
+  changes on the cartography
 
-Requerimientos
+Requirements
 -----------------------
 
-- Ejecución a demanda
-- Desde AutoCAD (los delineantes VIVEN en AutoCAD)
-- Debe mostrar información del resultado del proceso
-- Debe ser tolerante a todos los fallos/guarradas que
-  el delineante pueda meter en la cartografía
+- On demand execution
+- From AutoCAD (those guys LIVE inside AutoCAD)
+- They need to have a minimal feedback on the results
+  of the process
+- It has to be tolerant (at least do it's best) to
+  the typical geometry problems.
 
-Solución
+Our approach
 ----------------------
 
-- Geokettle como herramienta ETL de migración de datos
-- Creación de un botón en AutoCAD que:
+- GeoKettle as an ETL tool to migrate this data
+- Development of a simple AutoCAD tool that:
 
-  - guarda una copia del dibujo actual como DXF
-  - lanza el proceso de Geokettle: de DXF a Oracle
-  - muestra los resultados
+  - saves a copy of the current draw as DXF
+  - starts a batch process that calls GeoKettle to load
+    that DXF into an Oracle table
+  - show some results
 
-Primera parte: en AutoCAD
+
+
+First part: AutoCAD
 ----------------------------
 
-No tiene mucho interés, un simple botón programado en
-Visual Basic que lanza un archivo de lotes de DOS
-que parametriza todo el proceso y acaba lanzando una llamada
-a la herramienta de consola de GeoKettel (``kitchen.bat``)
+This is not really too interesting. It's just a
+Visual Basic button that calls a DOS batch file
+with all the parameters of the process (folders,
+table name, etc) and that in the end, will call
+the ``kitchen`` tool.
 
 ::
 
   CALL Kitchen.bat /level %LOG% /file "sincronizar-dxf-oracle.kjb" "/param:GPC_logfile=%LOGFILE%" "/param:GPC_logfile_detail=%LOGFILEDETAIL%" "/param:GPC_dxf_file=%DXF%" "/param:GPC_dxf_capa=%CAPA%" "/param:GPC_db_host=%DB_HOST%" "/param:GPC_db_port=%DB_PORT%" "/param:GPC_db_name=%DB_NAME%" "/param:GPC_db_user=%DB_USER%" "/param:GPC_db_pass=%DB_PASS%" "/param:GPC_tabla_tmp=%BP_TABLA%" "/param:GPC_tabla_tmp_geom=%BP_TABLA_GEOM%" "/param:GPC_tabla_tmp_idx=%BP_TABLA_INDEX%"
 
-Segunda parte:
+Second part: GeoKettle
 ------------------------------
 
-Qué es geokettle
+What is GeoKettle?
 +++++++++++++++++++++++++++++
 
-- Kettle (ahora Pentaho Data Integration) es una herramienta ETL
+- Kettle (now Pentaho Data Integration) is an ETL tool:
 
-  - Extracción
-  - Transformación
-  - Carga
+  - Extraction
+  - Transformation
+  - Load
 
-- Dispone de tres interfaces de usuario
+- It has three user interfaces:
 
-  - Spoon: Interfaz Gráfica para diseñar
-  - Kitchen: CLI
-  - Carte: Interfaz web
+  - Spoon: Graphical User Interface to design and test
+  - Kitchen: to call the processes from the command line (or in cron)
+  - Carte: to deploy a web service to run the processes
 
-- Conceptos básicos
+- Building blocks at Kettle :
 
-  - Paso: elemento mínimo de un proceso ETL
+  - Step: minimum element of a process to perform several tasks like
 
-    - Leer un origen
-    - Ejecutar código JavaScript para crear datos derivados
-    - Cargar en un destino
+    - Read data from an origin
+    - Transform data or create new derivative data
+    - Write the results into an output resource
 
-  - Transformación: procedimiento ETL
-  - Trabajo: coordinación de transformaciones
+  - Transformation: ETL process made by steps
+  - Job: a work-flow of transformations or other jobs
 
-> The Data Integration perspective of Spoon allows you to create two basic document types: transformations and jobs. Transformations are used to describe the data flows for ETL such as reading from a source, transforming data and loading it into a target location. Jobs are used to coordinate ETL activities such as defining the flow and dependencies for what order transformations should be run, or prepare for execution by checking conditions such as, "Is my source file available?," or "Does a table exist in my database?"
+> The Data Integration perspective of Spoon allows you to create two
+> basic document types: transformations and jobs. Transformations are
+> used to describe the data flows for ETL such as reading from a source,
+> transforming data and loading it into a target location. Jobs are used
+> to coordinate ETL activities such as defining the flow and
+> dependencies for what order transformations should be run, or prepare
+> for execution by checking conditions such as, "Is my source file
+> available?," or "Does a table exist in my database?"
 
 
 - GeoKettle:
 
-  - Fork (técnico) que añade pasos geo
-  - Multiplataforma
+  - Technical fork to add geographical capabilities
+  - Multiplatform
   - LGPL
-  - Se integra con OGR, GDAL, SEXTANTE
-  - Usa JTS internamente
-  - Dispone de pasos para trabajar con catálogos CSW, análisis de datos, transformación de coordenadas, cliente WPS,....
+  - Integrating other geo tools like OGR/GDAL/SEXTANTE
+  - It uses JTS and geotools internally
+  - It has geo-steps to work with CSW catalogues, WPS,
+    data analysis, SRS transformations, ...
 
 
-Nuestro trabajo:
+Returning to our job:
 ++++++++++++++++++++++++++++++++++
 
-Pasos:
+Steps:
 
-#. Eliminar el índice de la tabla (Oracle hack, SQL)
-#. Cargar el DXF con OGR
+#. Delete the geometry field index on the table (Oracle Hack, SQL)
+#. Load the DXF using OGR
 
-   - filtrando por capa para evitar cargar datos innecesarios
+  - filter by layer to avoid loading into GeoKettle unnecessary data
 
-#. Filtrar geometrías que no sean de tipo linea (JavaScript)
-#. Poligonizar las geometrías con JTS (JavaScript)
-#. Filtrar campos
-#. Cargar en tabla Oracle (borrando datos anteriores)
-#. Actualizar geometrías con el CRS correcto (SQL)
-#. Reparar geometrías con (SQL):
+#. Filter geometries that aren't lines (JavaScript, JTS)
+#. Polygonize the lines (JavaScirpt, JTS)
+#. Filter fields
+#. Load the result data into an Oracle table, by first removing previous data
+#. Update the CRS of the table geometries (Oracle Hack, SQL)
+#. Fix any geometry loaded with any of these errors (SQL):
 
-   - Sentido de giro incorrecto
-   - Nodos repetidos
+   - The rings are not correctly oriented
+   - There are duplicated nodes
    - ???
 
-#. Crear de nuevo el índice (SQL)
+#. Create a new geometry index (Oracle Hack, SQL)
 
-..note:: se genera un log sencillo del proceso
+.. note:: A log is created to show to the user the results
+          of the entire process
 
-..attention:: falta log
+.. attention:: Paste an example of the log
 
 
-Conclusiones
+Conclusions
 ---------------------------
 
-- Geokettle es una potente herramienta de manipulación de datos
-- Es un GIS de escritorio dedicado a automatizar procesos
-- Adaptado a usuarios con conocimientos variados: OGR/GDAL, SQL, JavaScript,...
+- GeoKettle is a powerful tool to manipulate data
+- It is a specialized desktop GIS to automate processes that will be executed many times
+- It is mainly focused on users with knowledge on SQL, JavaScript, OGR/GDAL,...
+- ...
