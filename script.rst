@@ -137,13 +137,14 @@ Pasos:
 
    - Sentido de giro incorrecto
    - Nodos repetidos
-   - ????
+   - ???
 
 #. Crear de nuevo el índice (SQL)
 
 ..note:: se genera un log sencillo del proceso
 
 ..attention:: falta log
+
 
 Conclusiones
 ---------------------------
