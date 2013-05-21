@@ -45,7 +45,7 @@ Real use case
   changes on the cartography
 
 Requirements
------------------------
++++++++++++++++++++++++++
 
 - On demand execution
 - From AutoCAD (those guys LIVE inside AutoCAD)
@@ -55,7 +55,7 @@ Requirements
   the typical geometry problems.
 
 Our approach
-----------------------
++++++++++++++++++++++++++
 
 - GeoKettle as an ETL tool to migrate this data
 - Development of a simple AutoCAD tool that:

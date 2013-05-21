@@ -72,22 +72,396 @@
       <section>
         <h2>Agenda</h2>
         <ul>
-          <li>Real world is hard</li>
-          <li></li>
-          <li></li>
+          <li>World is <strong>complicated</strong></li>
+          <li><strong>Our</strong> use case</li>
+          <li>First part: <strong>AutoCAD</strong></li>
+          <li>Second part: <strong>GeoKettle</strong></li>
+          <li><strong>Conclusions</strong></li>
         </ul>
       </section>
 
       <section>
-        <h2></h2>
+        <h2>World is complicated</h2>
+        <p>On harbours we have draughtsmen, <br/>surveyors, civil engineers</p>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>High skills on technical <strong>drawings</strong>, surveying, etc </li>
+          <li>Almost <strong>0 (zero) knowledge</strong> on GIS or databases</li>
+          <li>The <strong>live</strong> inside AutoCAD</li>
+        </ul>
+        <p>
+          <img src="images/draughtsman.jpg" width="500" height="336" alt="Draftsman at work on map of Lakemont Blvd(?), circa 1970">
+        </p>
+      </section>
+
+      <section>
+        <h2>World is complicated</h2>
+        <p>...but harbors want to use <strong>GIS</strong> to manage</p>
+        <ul>
+          <li class="fragment">their space (<strong>€€€</strong>)</li>
+          <li class="fragment"><strong>emergencies</strong> (real or simulated)</li>
+          <li class="fragment">industrual and environmental <strong>sensors</strong> </li>
+          <li class="fragment"><strong>real time</strong> moving elements
+          <p style="text-align:center;">
+            <img style="max-width:60%;" src="images/genoa.jpg"
+            alt="Genoa harbor accident"></p>
+          </li>
+        </ul>
+
+
+      </section>
+
+      <section>
+        <h2>World is complicated</h2>
+        <p>
+          ...so the usually implement GIS at some level<br>
+          <span class="fragment">
+            and our loved draughtsman have <br>
+            to load <strong>THEIR</strong>
+            data into the GIS
+          </span>
+        </p>
+      </section>
+
+      <section>
+        <h2>One use case</h2>
+        <ul>
+          <li>We have a <strong>space management</strong> application</li>
+          <li>Cartography is maintained in <strong>DWG format</strong></li>
+          <li>We have to load that data <br>
+              into an <strong>Oracle database</strong></li>
+          <li>The draughtsman has to <strong>be able to load</strong> it as he does
+  changes on the cartography</li>
         </ul>
       </section>
 
+      <section>
+        <h2>Requirements</h2>
+        <ul>
+          <li>On demand execution</li>
+          <li>From AutoCAD <span class="fragment">(really, those guys live inside it)</span></li>
+          <li class="fragment">Some feedback of the process</li>
+          <li class="fragment">Tolerant to messy drawings
 
+          <p style="text-align:center;"><img src="images/cuidado.gif" alt="cuidado"></p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Our last approach</h2>
+        <ul>
+          <li>Use GeoKettle to migrate data</li>
+          <li>Executed as an AutCAD tool</li>
+        </ul>
+        <p>
+          <img style="background-color:white;"
+            src="images/geokettle.png" alt="GeoKettle">
+        </p>
+      </section>
+
+      <section>
+        <h2>First part: AutoCAD</h2>
+        <p>
+          <img src="images/autocad1.png" alt="AutoCAD">
+        </p>
+      </section>
+
+      <section>
+        <h2>First part: AutoCAD</h2>
+        <ol>
+          <li>Saves the drawing as a DXF</li>
+          <li>Launches a GeoKettle Job</li>
+          <li>Presents the results</li>
+        </ol>
+      </section>
+
+      <section>
+        <section>
+        <h2>Second part: GeoKettle</h2>
+          <object type="image/svg+xml"
+          width="550" height="500" style=""
+          data="./images/geokettlequestion.svg">
+        <span/></object>
+        </section>
+
+        <section>
+          <h2>What is Kettle?</h2>
+          <ul>
+            <li><strong>E</strong>xtraction</li>
+            <li><strong>T</strong>ransformation</li>
+            <li><strong>L</strong>oad</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Three user interfaces:</h2>
+          <ul>
+            <li><strong>Spoon</strong>: Graphical User Interface</li>
+            <li><strong>Kittlen</strong>: CLI</li>
+            <li><strong>Carte</strong>: web</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Bulding blocks</h2>
+          <ul>
+            <li><strong>Step</strong>: minimum element, a task</li>
+            <li><strong>Transformation</strong>: chain of steps</li>
+            <li><strong>Job</strong>: coordination of jobs and trans.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Spoon: tranformation</h2>
+          <p>
+            <img style="max-height:85%;"
+            src="images/spoon.png" alt="Spoon Transformation">
+          </p>
+        </section>
+        <section>
+          <h2>Spoon: job</h2>
+          <p>
+            <img style="max-height:85%;"
+            src="images/spoon2.png" alt="Spoon Job">
+          </p>
+        </section>
+
+        <section>
+          <h2>GeoKettle</h2>
+          <ul>
+            <li>Techical fork of Kettle</li>
+            <li>Java</li>
+            <li>Multiplatform</li>
+            <li>LPGL</li>
+            <li>Integrates: GDAL/OGR/...</li>
+            <li>Uses JTS and GeoTools</li>
+            <li>Steps for GI: analysis, projections,
+              OGC services,...</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>GeoKettle</h2>
+          <p>
+            <img src="images/geokettle-steps.png"
+              alt="Geokettle steps">
+          </p>
+
+
+        </section>
+      </section>
+
+      <section>
+        <h2>Our process</h2>
+        <p>
+          <img src="images/main-job.png" alt="main job">
+        </p>
+      </section>
+
+      <section>
+        <section>
+          <h2>Delete index</h2>
+          <p>
+            <img src="images/trans-1.png"
+              alt="delete index">
+          </p>
+        </section>
+        <section>
+          <h2>Delete index</h2>
+          <pre><code class="sql">
+  SELECT
+    index_name
+  FROM
+    SYS.user_indexes
+  WHERE
+    index_name LIKE 'myTable_IDX';</code>
+          </pre>
+        </section>
+      </section>
+      <section>
+        <h2>Count geometries</h2>
+        <p>
+          <img src="images/trans-2.png"
+            alt="count geometries">
+        </p>
+      </section>
+      <section>
+        <section>
+          <h2>Load DXF into Database</h2>
+          <p>
+            <img src="images/trans-3.png"
+              alt="load DXF geoms into Oracle">
+          </p>
+        </section>
+        <section>
+          <h2>Get geometry type</h2>
+          <pre><code class="JavaScript">
+  if(the_geom !== null){
+    type = the_geom.getGeometryType();
+  }
+          </code></pre>
+        </section>
+        <section>
+          <h2>Polygonize</h2>
+          <pre><code class="JavaScript">
+if(the_geom !== null){
+  factory      = the_geom.getFactory();
+  coords       = the_geom.getCoordinates();
+}
+
+try{
+  if ( coords[0].equals(coords[coords.length - 1])) {
+    isValid = true;
+    lineRing = factory.createLinearRing(coords);
+    the_geomPol = factory.createPolygon(lineRing,null);
+    area = the_geomPol.getArea();
+  }
+  else {
+    isValid   = false;
+    the_geomPol = null;
+    area = 0;
+  }
+} catch(err){
+  isValid   = false;
+  the_geomPol = null;
+  area = 0;
+}</code></pre>
+        </section>
+      </section>
+      <section>
+        <h2>Count geometries after load</h2>
+        <p>
+          <img src="images/trans-2.png"
+            alt="count geometries">
+        </p>
+      </section>
+      <section>
+        <section>
+          <h2>Finish the job</h2>
+          <p>
+            <img src="images/trans-4.png"
+            alt="fix geoetríes, create index etc">
+          </p>
+        </section>
+        <section>
+          <h2>Finish the job 1/3</h2>
+          <p>Set the correct SRS</p>
+          <pre><code class="SQL">
+UPDATE myTable a
+SET a.geometry.sdo_srid=83030
+WHERE a.geometry IS NOT NULL;
+</code></pre>
+        </section>
+        <section>
+          <h2>Finish the job 2/3</h2>
+          <p>Fix invalid geometries</p>
+          <pre><code class="SQL">
+UPDATE myTable a
+SET geometry =
+  SDO_UTIL.RECTIFY_GEOMETRY(geometry, 0.00001)
+WHERE
+  SDO_GEOM.VALIDATE_GEOMETRY_WITH_CONTEXT(
+    a.geometry,0.00001) <> 'TRUE'
+  AND a.geometry is not null
+  AND a.geometry.SDO_GTYPE is not null
+  AND SDO_GEOM.VALIDATE_GEOMETRY(a.geometry,0.00001)
+    IN ('13367','13356','13349');
+
+</code></pre>
+        </section>
+        <section>
+          <h2>Finish the job 3/3</h2>
+          <p>Create a new index</p>
+          <pre><code class="SQL">
+CREATE INDEX myTable_IDX ON
+  myTable(geometry)
+  INDEXTYPE IS
+  MDSYS.SPATIAL_INDEX PARAMETERS('sdo_indx_dims=2');
+</code></pre>
+        </section>
+      </section>
+
+
+      <section>
+        <h2>Present results</h2>
+        <p>
+          <img src="images/autocad2.png"
+          alt="Present the results">
+        </p>
+      </section>
+
+      <section>
+        <h2>Remarks</h2>
+        <ul>
+          <li>GeoKettle is a powerful tool to
+              <strong>manipulate data</strong></li>
+          <li class="fragment">It is a <strong>specialized
+              desktop GIS</strong> to <strong>automate</strong>
+              processes that will be executed many times</li>
+          <li class="fragment">
+              It is mainly focused on <strong>powers users</strong> with
+              knowledge on SQL, JavaScript, OGR/GDAL,...
+
+              <p style="text-align:center;">
+                <img style="width:450px;"
+                  src="images/power-users.gif"
+                  alt="power users">
+              </p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h1>From CAD to DB</h1>
+        <h3>Thanks!!</h3>
+
+        <p><img src="images/cierre.gif" alt="Cierre"></p>
+
+        <p style="font-size:larger;">
+          <a href="http://bit.ly/from-cad-to-db">
+            http://bit.ly/from-cad-to-db</a>
+        </p>
+      </section>
+
+
+      <!-- Cierre -->
+      <section>
+        <h2>References</h2>
+        <ul>
+          <li><a href="http://www.pentaho.com/explore/pentaho-data-integration/">Kettle</a>, now Pentaho Data Integration</li>
+          <li><a href="http://www.spatialytics.org/projects/geokettle/">
+            GeoKettle
+          </a> at Spatialytics</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Pictures</h2>
+        <p>
+          <a href="http://www.flickr.com/photos/kingcounty/8139974275/"
+            title="Draftsman at work on map of Lakemont Blvd(?), circa 1970 by King County, WA, on Flickr">
+            Draughtsman</a>,
+          <a href="http://www.telegraph.co.uk/news/worldnews/europe/italy/10043002/Seven-dead-in-Genoa-shipping-accident.html">
+            Genoa accident at The Telegraph
+          </a>,
+          <a href="http://www.topito.com/">stylish gifs from topito</a>
+        </p>
+      </section>
+
+      <section>
+        <p>
+          <a rel="license"
+          href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.es">
+          <img src="images/cc-by-nc-sa.png" class="no-back"></a>
+        </p>
+
+        <p>
+          This content is under a <a rel="license"
+          href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en">
+            Creative Commons Attribution-NonCommercial-ShareAlike 3.0 unported</a>
+            license.
+        </p>
+      </section>
     </div>
   </div>
 
@@ -102,7 +476,8 @@
 
   <script src="scripts/reveal.js/lib/js/head.min.js"></script>
   <script src="scripts/reveal.js/js/reveal.min.js"></script>
-
+    <script src="scripts/reveal.js/lib/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   <script>
     // Full list of configuration options available here:
     // https://github.com/hakimel/reveal.js#configuration
