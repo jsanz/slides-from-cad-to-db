@@ -162,6 +162,13 @@
       <section>
         <h2>First part: AutoCAD</h2>
         <p>
+          <img src="images/autocad-bbpp.png" alt="AutoCAD">
+        </p>
+      </section>
+
+      <section>
+        <h2>First part: AutoCAD</h2>
+        <p>
           <img src="images/autocad1.png" alt="AutoCAD">
         </p>
       </section>
@@ -176,12 +183,13 @@
       </section>
 
       <section>
+
         <section>
-        <h2>Second part: GeoKettle</h2>
-          <object type="image/svg+xml"
-          width="550" height="500" style=""
-          data="./images/geokettlequestion.svg">
-        <span/></object>
+          <h2>Second part: GeoKettle</h2>
+            <object type="image/svg+xml"
+            width="550" height="500" style=""
+            data="./images/geokettlequestion.svg">
+          <span/></object>
         </section>
 
         <section>
@@ -246,9 +254,8 @@
             <img src="images/geokettle-steps.png"
               alt="Geokettle steps">
           </p>
-
-
         </section>
+
       </section>
 
       <section>
@@ -259,6 +266,7 @@
       </section>
 
       <section>
+
         <section>
           <h2>Delete index</h2>
           <p>
@@ -266,6 +274,7 @@
               alt="delete index">
           </p>
         </section>
+
         <section>
           <h2>Delete index</h2>
           <pre><code class="sql">
@@ -278,6 +287,7 @@
           </pre>
         </section>
       </section>
+
       <section>
         <h2>Count geometries</h2>
         <p>
@@ -285,6 +295,7 @@
             alt="count geometries">
         </p>
       </section>
+
       <section>
         <section>
           <h2>Load DXF into Database</h2>
@@ -293,6 +304,7 @@
               alt="load DXF geoms into Oracle">
           </p>
         </section>
+
         <section>
           <h2>Get geometry type</h2>
           <pre><code class="JavaScript">
@@ -301,6 +313,15 @@
   }
           </code></pre>
         </section>
+
+        <section>
+          <h2>Polygonize</h2>
+          <p>
+            <img src="images/trans-3.png"
+              alt="load DXF geoms into Oracle">
+          </p>
+        </section>
+
         <section>
           <h2>Polygonize</h2>
           <pre><code class="JavaScript">
@@ -327,7 +348,17 @@ try{
   area = 0;
 }</code></pre>
         </section>
+
+        <section>
+          <h2>Filter, refine and load</h2>
+          <p>
+            <img src="images/trans-3.png"
+              alt="load DXF geoms into Oracle">
+          </p>
+        </section>
+
       </section>
+
       <section>
         <h2>Count geometries after load</h2>
         <p>
@@ -335,7 +366,9 @@ try{
             alt="count geometries">
         </p>
       </section>
+
       <section>
+
         <section>
           <h2>Finish the job</h2>
           <p>
@@ -343,6 +376,7 @@ try{
             alt="fix geoetríes, create index etc">
           </p>
         </section>
+
         <section>
           <h2>Finish the job 1/3</h2>
           <p>Set the correct SRS</p>
@@ -352,6 +386,7 @@ SET a.geometry.sdo_srid=83030
 WHERE a.geometry IS NOT NULL;
 </code></pre>
         </section>
+
         <section>
           <h2>Finish the job 2/3</h2>
           <p>Fix invalid geometries</p>
@@ -369,6 +404,7 @@ WHERE
 
 </code></pre>
         </section>
+
         <section>
           <h2>Finish the job 3/3</h2>
           <p>Create a new index</p>
@@ -379,14 +415,23 @@ CREATE INDEX myTable_IDX ON
   MDSYS.SPATIAL_INDEX PARAMETERS('sdo_indx_dims=2');
 </code></pre>
         </section>
-      </section>
 
+      </section>
 
       <section>
         <h2>Present results</h2>
         <p>
           <img src="images/autocad2.png"
           alt="Present the results">
+        </p>
+      </section>
+
+      <section>
+        <h2>Et voilà!</h2>
+        <p>
+          <img style="max-height:600px;"
+          src="images/sqldeveloper.png"
+          alt="Oracle SQL Developer">
         </p>
       </section>
 
@@ -421,6 +466,12 @@ CREATE INDEX myTable_IDX ON
           <a href="http://bit.ly/from-cad-to-db">
             http://bit.ly/from-cad-to-db</a>
         </p>
+      </section>
+
+      <section>
+        <h2>Happy Towel Day!!!</h2>
+        <img style="max-height:600px;"
+        src="images/towelday.jpg" alt="Towel Day">
       </section>
 
 
